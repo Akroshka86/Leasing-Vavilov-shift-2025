@@ -1,15 +1,19 @@
+import { useState } from 'react';
 import Header from './components/Header';
+import SearchBar from './components/SearchBar';
+import CarsList from './components/CarsList';
 import './styles/App.css';
 
-function App() {
+export default function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+
   return (
     <>
       <Header />
+      <SearchBar setSearchQuery={setSearchQuery} />
       <main>
-        {/* Контент страницы */}
+        <CarsList searchQuery={searchQuery} />
       </main>
     </>
   );
 }
-
-export default App;

@@ -1,0 +1,9 @@
+.cars-card{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд */
+    gap: 32px 28px;
+}
+
+.cars-list{
+    width: 960px;
+}
