@@ -1,20 +1,81 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import '../styles/SearchBar.css';
 import searchImg from '../assets/logo_search.png';
 
 export default function SearchBar({ setSearchQuery }) {
   const [rentalDate, setRentalDate] = useState('');
-  const [showCalendar, setShowCalendar] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const calendarRef = useRef(null);
+
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ]);
 
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
+  const handleSelect = (ranges) => {
+    setDateRange([ranges.selection]);
+  };
+
+  const applyDate = () => {
+    const startDate = dateRange[0].startDate;
+    const endDate = dateRange[0].endDate;
+
+    const optionsDay = { day: '2-digit' };
+    const optionsMonthYear = { month: 'long', year: 'numeric' };
+
+    const dayStart = startDate.toLocaleDateString('ru-RU', optionsDay);
+    const dayEnd = endDate.toLocaleDateString('ru-RU', optionsDay);
+    const monthYear = endDate.toLocaleDateString('ru-RU', optionsMonthYear);
+
+    const diffTime = endDate - startDate;
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+    const formatted = `${dayStart} - ${dayEnd} ${monthYear} (${diffDays} ${getDayWord(diffDays)})`;
+
+    setRentalDate(formatted);
+    setShowModal(false);
+  };
+
+  const getDayWord = (num) => {
+    if (num % 10 === 1 && num % 100 !== 11) return 'день';
+    if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) return 'дня';
+    return 'дней';
+  };
+
+  // Закрытие при клике вне календаря
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setShowModal(false);
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showModal]);
+
   return (
     <div className="search-bar">
       <div className="search-bar-menu">
         <div className="search-bar-menu-items">
-          
+
           <div className="search-item">
             <label className="searchInput">Поиск</label>
             <input
@@ -32,15 +93,9 @@ export default function SearchBar({ setSearchQuery }) {
               id="dateInput"
               placeholder="Выберите даты"
               value={rentalDate}
-              onFocus={() => setShowCalendar(true)}
+              onClick={() => setShowModal(true)}
               readOnly
             />
-            {showCalendar && (
-              <div className="calendar-popup">
-                <p>Тут будет календарь выбора диапазона дат</p>
-                <button onClick={() => setShowCalendar(false)}>Закрыть</button>
-              </div>
-            )}
           </div>
 
           <button className="filter-button">
@@ -51,9 +106,22 @@ export default function SearchBar({ setSearchQuery }) {
               <span className="filter-button-text">Фильтр</span>
             </div>
           </button>
-
         </div>
       </div>
+
+      {showModal && (
+        <div className="calendar-dropdown" ref={calendarRef}>
+          <div className="calendar-content">
+            <DateRange
+              editableDateInputs={true}
+              onChange={handleSelect}
+              moveRangeOnFirstSelection={false}
+              ranges={dateRange}
+            />
+            <button className="apply-button" onClick={applyDate}>Выбрать</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

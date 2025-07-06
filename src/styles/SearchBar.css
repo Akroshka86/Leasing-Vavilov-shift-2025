@@ -1,4 +1,5 @@
 .search-bar {
+    position: relative;
     height: 114px;
     width: 1440px;
     display: flex;
@@ -7,7 +8,7 @@
 
 .search-bar-menu{
     display: flex;
-    
+    position: relative;
     width: 960px;
     height: 114px;
     background: #344051;
@@ -91,6 +92,28 @@
     padding: 12px;
 }
 
+.rentalDate{
+    width: 43px;
+    height: 20px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#dateInput {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    color: #ffffff;
+    padding: 12px;
+}
+
+
 
 .search-date{
     display: flex;
@@ -173,4 +196,23 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+}
+
+.calendar-dropdown {
+  position: absolute;
+  top: 124px; /* Высота .search-bar-menu + небольшой отступ */
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.calendar-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
 }

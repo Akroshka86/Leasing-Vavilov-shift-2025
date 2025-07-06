@@ -11,9 +11,7 @@ export default function App() {
     <>
       <Header />
       <SearchBar setSearchQuery={setSearchQuery} />
-      <main>
-        <CarsList searchQuery={searchQuery} />
-      </main>
+      <CarsList searchQuery={searchQuery} />
     </>
   );
 }

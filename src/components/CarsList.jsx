@@ -35,13 +35,13 @@ export default function CarsList({ searchQuery }) {
 
     return (
         <div className="cars-сonteiner">
-        <div className="cars-list">
-            <div className="cars-card">
-            {filteredCars.map((car) => (
-                <CarCard key={car.id} car={car} />
-            ))}
+            <div className="cars-list">
+                <div className="cars-card">
+                {filteredCars.map((car) => (
+                    <CarCard key={car.id} car={car} />
+                ))}
+                </div>
             </div>
-        </div>
         </div>
     );
 }

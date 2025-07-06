@@ -20,6 +20,7 @@ export default function CarCard({ car }) {
         <div className="car-card-content-button">
           <div className="car-card-content-button-price">
             <p className="car-price">{car.price.toLocaleString()} ₽</p>
+            <p className="car-date-price">{car.price.toLocaleString()} ₽</p>
           </div>
           <button className="car-card-content-button-btn">
             <span className="car-card-content-button-btn-text">Выбрать</span>
