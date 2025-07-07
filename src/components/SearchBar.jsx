@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { ru } from 'date-fns/locale';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -117,6 +118,7 @@ export default function SearchBar({ setSearchQuery }) {
               onChange={handleSelect}
               moveRangeOnFirstSelection={false}
               ranges={dateRange}
+              locale={ru}
             />
             <button className="apply-button" onClick={applyDate}>Выбрать</button>
           </div>

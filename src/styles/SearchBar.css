@@ -203,16 +203,36 @@
   top: 124px; /* Высота .search-bar-menu + небольшой отступ */
   left: 50%;
   transform: translateX(-50%);
-  background: white;
+  background: #212121;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #212121;
   border-radius: 8px;
   z-index: 100;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: #212121;
 }
 
 .calendar-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
+    background: #212121;
+    padding: 20px;
+    border-radius: 8px;
+    border-color: #212121;
 }
+
+.rdrDateDisplayWrapper {
+    background-color: #212121;
+}
+
+.rdrCalendarWrapper{
+    background-color: #212121;
+}
+
+/* Цвет цифры для выделенного диапазона */
+.rdrDayNumber span {
+    color: #ff0000 !important; /* красный, например */
+}
+
+.rdrDayPassive span{
+    color: #9dff00 !important; /* красный, например */
+}
+
