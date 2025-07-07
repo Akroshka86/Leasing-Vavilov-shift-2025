@@ -88,7 +88,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 0px;
     gap: 8px;
     width: 298.67px;
@@ -122,4 +122,14 @@
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
+}
+
+.car-date-price{
+    height: 24px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #EFF0F1;
 }

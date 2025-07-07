@@ -6,7 +6,7 @@ import 'react-date-range/dist/theme/default.css';
 import '../styles/SearchBar.css';
 import searchImg from '../assets/logo_search.png';
 
-export default function SearchBar({ setSearchQuery }) {
+export default function SearchBar({ setSearchQuery, setRentalDays }) {
   const [rentalDate, setRentalDate] = useState('');
   const [showModal, setShowModal] = useState(false);
   const calendarRef = useRef(null);
@@ -24,12 +24,20 @@ export default function SearchBar({ setSearchQuery }) {
   };
 
   const handleSelect = (ranges) => {
-    setDateRange([ranges.selection]);
-  };
+  setDateRange([ranges.selection]);
 
-  const applyDate = () => {
-    const startDate = dateRange[0].startDate;
-    const endDate = dateRange[0].endDate;
+  const { startDate, endDate } = ranges.selection;
+
+  // Если обе даты выбраны и они не равны, закрываем календарь
+  if (startDate && endDate && startDate.getTime() !== endDate.getTime()) {
+    applyDate(ranges.selection);
+    setShowModal(false);
+  }
+};
+
+const applyDate = (selection = dateRange[0]) => {
+    const startDate = selection.startDate;
+    const endDate = selection.endDate;
 
     const optionsDay = { day: '2-digit' };
     const optionsMonthYear = { month: 'long', year: 'numeric' };
@@ -44,6 +52,7 @@ export default function SearchBar({ setSearchQuery }) {
     const formatted = `${dayStart} - ${dayEnd} ${monthYear} (${diffDays} ${getDayWord(diffDays)})`;
 
     setRentalDate(formatted);
+    setRentalDays(diffDays); // вот тут устанавливаем количество дней
     setShowModal(false);
   };
 

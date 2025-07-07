@@ -1,7 +1,9 @@
 import '../styles/CarCard.css';
 
-export default function CarCard({ car }) {
+export default function CarCard({ car, rentalDays }) {
   const cover = car.media.find((m) => m.isCover)?.url || '';
+
+  const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
 
   return (
     <div className="car-card">
@@ -20,7 +22,11 @@ export default function CarCard({ car }) {
         <div className="car-card-content-button">
           <div className="car-card-content-button-price">
             <p className="car-price">{car.price.toLocaleString()} ₽</p>
-            <p className="car-date-price">{car.price.toLocaleString()} ₽</p>
+            {rentalDays > 0 && (
+              <p className="car-date-price">
+                {totalPrice.toLocaleString()} ₽ за {rentalDays} {getDayWord(rentalDays)}
+              </p>
+            )}
           </div>
           <button className="car-card-content-button-btn">
             <span className="car-card-content-button-btn-text">Выбрать</span>
@@ -30,3 +36,9 @@ export default function CarCard({ car }) {
     </div>
   );
 }
+
+const getDayWord = (num) => {
+  if (num % 10 === 1 && num % 100 !== 11) return 'день';
+  if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) return 'дня';
+  return 'дней';
+};
