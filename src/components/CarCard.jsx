@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom';
 import '../styles/CarCard.css';
+import useStateManager from './StateManager';
 
-export default function CarCard({ car, rentalPeriod  }) {
+export default function CarCard({ car}) {
   const cover = car.media.find((m) => m.isCover)?.url || '';
+  const rentalPeriod = useStateManager((state) => state.rentalPeriod);
+  let rentalDays = 0;
+  if (rentalPeriod?.startDate && rentalPeriod?.endDate) {
+    const start = new Date(rentalPeriod.startDate);
+    const end = new Date(rentalPeriod.endDate);
+    const diffTime = end - start;
+    rentalDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  }
+  const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
 
-    const rentalDays = rentalPeriod?.days || 0;
-    const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
+  
 
   return (
     <div className="car-card">

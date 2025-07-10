@@ -4,12 +4,21 @@ import '../styles/CarDetails.css';
 import btnImg from '../assets/logo_btn.png';
 import lineImg from '../assets/logo-line.png';
 import { useLocation } from 'react-router-dom';
+import useStateManager from './StateManager';
 
 export default function CarDetails() {
     const { carId } = useParams();
     const navigate = useNavigate();
     const [car, setCar] = useState(null);
     const [loading, setLoading] = useState(true);
+    const rentalPeriod = useStateManager(state => state.rentalPeriod);
+    let rentalDays = 0;
+    if (rentalPeriod?.startDate && rentalPeriod?.endDate) {
+        const start = new Date(rentalPeriod.startDate);
+        const end = new Date(rentalPeriod.endDate);
+        const diffTime = end - start;
+        rentalDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    }
     const bodyTypeMap = {
         suv: "Внедорожник",
         cabriolet: "Кабриолет",
@@ -30,13 +39,10 @@ export default function CarDetails() {
         blue:"Синий",
     };
 
-    const location = useLocation();
-    const rentalPeriod = location.state?.rentalPeriod || { startDate: null, endDate: null, days: 0 };
     
 
 
 
-  const rentalDays = 5;
 
   useEffect(() => {
     fetch(`https://shift-intensive.ru/api/cars/info/${carId}`)
@@ -75,7 +81,7 @@ export default function CarDetails() {
         ? `${formatDate(rentalPeriod.startDate)} - ${formatDate(rentalPeriod.endDate)}`
         : '';
 
-    const totalPrice = rentalPeriod.days > 0 ? car.price * rentalPeriod.days : null;
+    const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
 
   return (
     <div className="car-details-car">
@@ -157,7 +163,7 @@ export default function CarDetails() {
                         <img src={lineImg} alt="line" />
 
                         <div className="specifications-box">
-                            <div className="specifications-box-text">Аренда на {rentalPeriod.days} {getDayWord(rentalPeriod.days)}</div>
+                            <div className="specifications-box-text">Аренда на {rentalDays} {getDayWord(rentalDays)}</div>
                             <div className="specifications-box-info">{formattedRange}</div>
                         </div>
                         <img src={lineImg} alt="line" />

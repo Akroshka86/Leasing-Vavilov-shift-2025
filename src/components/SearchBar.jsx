@@ -5,12 +5,16 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import '../styles/SearchBar.css';
 import searchImg from '../assets/logo_search.png';
+import useStateManager from './StateManager';
 
-export default function SearchBar({ setSearchQuery, setRentalPeriod }) {
-  const [rentalDate, setRentalDate] = useState('');
+export default function SearchBar({ setSearchQuery }) {
   const [showModal, setShowModal] = useState(false);
   const calendarRef = useRef(null);
 
+  const rentalPeriod = useStateManager((state) => state.rentalPeriod);
+  const setRentalPeriod = useStateManager((state) => state.setRentalPeriod);
+
+  const [rentalDate, setRentalDate] = useState('');
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -19,46 +23,22 @@ export default function SearchBar({ setSearchQuery, setRentalPeriod }) {
     }
   ]);
 
-  const handleInputChange = (e) => {
-    setSearchQuery(e.target.value);
+  // Форматирование даты в строку
+  const formatRentalDate = (startDate, endDate) => {
+    if (!startDate || !endDate) return '';
+
+    const optionsDay = { day: '2-digit' };
+    const optionsMonthYear = { month: 'long', year: 'numeric' };
+
+    const dayStart = startDate.toLocaleDateString('ru-RU', optionsDay);
+    const dayEnd = endDate.toLocaleDateString('ru-RU', optionsDay);
+    const monthYear = endDate.toLocaleDateString('ru-RU', optionsMonthYear);
+
+    const diffTime = endDate - startDate;
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+    return `${dayStart} - ${dayEnd} ${monthYear} (${diffDays} ${getDayWord(diffDays)})`;
   };
-
-  const handleSelect = (ranges) => {
-  setDateRange([ranges.selection]);
-
-  const { startDate, endDate } = ranges.selection;
-
-
-  if (startDate && endDate && startDate.getTime() !== endDate.getTime()) {
-    applyDate(ranges.selection);
-    setShowModal(false);
-  }
-};
-
-const applyDate = (selection = dateRange[0]) => {
-  const startDate = selection.startDate;
-  const endDate = selection.endDate;
-
-  const optionsDay = { day: '2-digit' };
-  const optionsMonthYear = { month: 'long', year: 'numeric' };
-
-  const dayStart = startDate.toLocaleDateString('ru-RU', optionsDay);
-  const dayEnd = endDate.toLocaleDateString('ru-RU', optionsDay);
-  const monthYear = endDate.toLocaleDateString('ru-RU', optionsMonthYear);
-
-  const diffTime = endDate - startDate;
-  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
-  const formatted = `${dayStart} - ${dayEnd} ${monthYear} (${diffDays} ${getDayWord(diffDays)})`;
-
-  setRentalDate(formatted);
-  setShowModal(false);
-  setRentalPeriod({
-    startDate,
-    endDate,
-    days: diffDays
-  });
-};
 
   const getDayWord = (num) => {
     if (num % 10 === 1 && num % 100 !== 11) return 'день';
@@ -66,6 +46,36 @@ const applyDate = (selection = dateRange[0]) => {
     return 'дней';
   };
 
+  // При загрузке компонента подставляем глобальные даты в локальный стейт
+  useEffect(() => {
+    if (rentalPeriod) {
+      setDateRange([
+        {
+          startDate: new Date(rentalPeriod.startDate),
+          endDate: new Date(rentalPeriod.endDate),
+          key: 'selection',
+        }
+      ]);
+      setRentalDate(formatRentalDate(new Date(rentalPeriod.startDate), new Date(rentalPeriod.endDate)));
+    }
+  }, [rentalPeriod]);
+
+  // Выбор даты из календаря
+  const handleSelect = (ranges) => {
+    setDateRange([ranges.selection]);
+
+    const { startDate, endDate } = ranges.selection;
+    setRentalPeriod(startDate, endDate);
+
+    if (startDate && endDate && startDate.getTime() !== endDate.getTime()) {
+      setRentalDate(formatRentalDate(startDate, endDate));
+      setShowModal(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -133,7 +143,6 @@ const applyDate = (selection = dateRange[0]) => {
               ranges={dateRange}
               locale={ru}
             />
-            <button className="apply-button" onClick={applyDate}>Выбрать</button>
           </div>
         </div>
       )}
