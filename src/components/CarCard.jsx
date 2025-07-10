@@ -43,7 +43,7 @@ export default function CarCard({ car}) {
           </div>
           <Link to={`/car/${car.id}`}>
           <button className="car-card-content-button-btn">
-            <span className="car-card-content-button-btn-text">Выбрать</span>
+            Выбрать
           </button>
           </Link>
         </div>

@@ -11,7 +11,7 @@ export default function CarDetails() {
     const navigate = useNavigate();
     const [car, setCar] = useState(null);
     const [loading, setLoading] = useState(true);
-    const rentalPeriod = useStateManager(state => state.rentalPeriod);
+    const rentalPeriod = useStateManager(state => state.rentalPeriod) || { startDate: null, endDate: null };
     let rentalDays = 0;
     if (rentalPeriod?.startDate && rentalPeriod?.endDate) {
         const start = new Date(rentalPeriod.startDate);

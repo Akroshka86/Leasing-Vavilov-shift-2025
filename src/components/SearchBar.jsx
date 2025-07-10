@@ -23,6 +23,20 @@ export default function SearchBar({ setSearchQuery }) {
     }
   ]);
 
+
+  const customLocale = {
+    ...ru,
+    localize: {
+      ...ru.localize,
+      day: (n, options) => {
+        const days = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+        if (options.width === 'abbreviated') {
+          return days[n];
+        }
+        return ru.localize.day(n, options);
+      },
+    },
+  };
   // Форматирование даты в строку
   const formatRentalDate = (startDate, endDate) => {
     if (!startDate || !endDate) return '';
@@ -141,7 +155,7 @@ export default function SearchBar({ setSearchQuery }) {
               onChange={handleSelect}
               moveRangeOnFirstSelection={false}
               ranges={dateRange}
-              locale={ru}
+              locale={customLocale}
             />
           </div>
         </div>

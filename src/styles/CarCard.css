@@ -111,17 +111,17 @@
     background: #DB0019;
     border-radius: 16px;
     border-color: #DB0019;
-}
-
-.car-card-content-button-btn-text{
-    width: 70px;
-    height: 24px;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
+}
+
+.car-card a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .car-date-price{
