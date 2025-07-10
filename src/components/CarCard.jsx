@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../styles/CarCard.css';
 
 export default function CarCard({ car, rentalDays }) {
@@ -7,11 +8,13 @@ export default function CarCard({ car, rentalDays }) {
 
   return (
     <div className="car-card">
-      <img
-        src={`https://shift-intensive.ru/api${cover}`}
-        alt={`${car.brand} ${car.name}`}
-        className="car-image"
-      />
+        <Link to={`/car/${car.id}`} className="car-card">
+        <img
+            src={`https://shift-intensive.ru/api${cover}`}
+            alt={`${car.brand} ${car.name}`}
+            className="car-image"
+        />
+        </Link>
       <div className="car-card-content">
         <div className="car-card-content-text">
           <h3 className="car-title">{car.name}</h3>
@@ -28,9 +31,11 @@ export default function CarCard({ car, rentalDays }) {
               </p>
             )}
           </div>
+          <Link to={`/car/${car.id}`}>
           <button className="car-card-content-button-btn">
             <span className="car-card-content-button-btn-text">Выбрать</span>
           </button>
+          </Link>
         </div>
       </div>
     </div>
