@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import '../styles/CarDetails.css';
 import btnImg from '../assets/logo_btn.png';
 import lineImg from '../assets/logo-line.png';
+import { useLocation } from 'react-router-dom';
 
 export default function CarDetails() {
     const { carId } = useParams();
@@ -29,6 +30,11 @@ export default function CarDetails() {
         blue:"Синий",
     };
 
+    const location = useLocation();
+    const rentalPeriod = location.state?.rentalPeriod || { startDate: null, endDate: null, days: 0 };
+    
+
+
 
   const rentalDays = 5;
 
@@ -52,11 +58,24 @@ export default function CarDetails() {
   const cover = car.media.find((m) => m.isCover)?.url || '';
   const otherImages = car.media.filter((m) => !m.isCover);
 
-  const getDayWord = (num) => {
-    if (num % 10 === 1 && num % 100 !== 11) return 'день';
-    if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) return 'дня';
-    return 'дней';
-  };
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('ru-RU', {
+        day: 'numeric',
+        month: 'long'
+    });
+    };
+
+    const getDayWord = (num) => {
+        if (num % 10 === 1 && num % 100 !== 11) return 'день';
+        if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) return 'дня';
+        return 'дней';
+    };
+
+    const formattedRange = rentalPeriod.startDate && rentalPeriod.endDate
+        ? `${formatDate(rentalPeriod.startDate)} - ${formatDate(rentalPeriod.endDate)}`
+        : '';
+
+    const totalPrice = rentalPeriod.days > 0 ? car.price * rentalPeriod.days : null;
 
   return (
     <div className="car-details-car">
@@ -138,15 +157,15 @@ export default function CarDetails() {
                         <img src={lineImg} alt="line" />
 
                         <div className="specifications-box">
-                            <div className="specifications-box-text">Аренда на</div>
-                            <div className="specifications-box-info">{rentalDays} {getDayWord(rentalDays)}</div>
+                            <div className="specifications-box-text">Аренда на {rentalPeriod.days} {getDayWord(rentalPeriod.days)}</div>
+                            <div className="specifications-box-info">{formattedRange}</div>
                         </div>
                         <img src={lineImg} alt="line" />
 
                         <div className="specifications-box">
                             <div className="specifications-box-text">Итого</div>
                             <div className="specifications-box-info">
-                            {(car.price * rentalDays).toLocaleString()} ₽
+                                {totalPrice ? `${totalPrice.toLocaleString()} ₽` : '—'}
                             </div>
                         </div>
                     </div>

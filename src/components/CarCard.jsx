@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
 import '../styles/CarCard.css';
 
-export default function CarCard({ car, rentalDays }) {
+export default function CarCard({ car, rentalPeriod  }) {
   const cover = car.media.find((m) => m.isCover)?.url || '';
 
-  const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
+    const rentalDays = rentalPeriod?.days || 0;
+    const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
 
   return (
     <div className="car-card">
-        <Link to={`/car/${car.id}`} className="car-card">
+        <Link to={`/car/${car.id}`} state={{ rentalPeriod }} className="car-card">
         <img
             src={`https://shift-intensive.ru/api${cover}`}
             alt={`${car.brand} ${car.name}`}

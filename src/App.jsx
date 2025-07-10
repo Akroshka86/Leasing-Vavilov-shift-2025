@@ -8,7 +8,11 @@ import './styles/App.css';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [rentalDays, setRentalDays] = useState(0); // количество дней аренды
+  const [rentalPeriod, setRentalPeriod] = useState({
+    startDate: null,
+    endDate: null,
+    days: 0,
+  });
 
 
   return (
@@ -19,8 +23,8 @@ export default function App() {
           path="/"
           element={
             <>
-              <SearchBar setSearchQuery={setSearchQuery} setRentalDays={setRentalDays} />
-              <CarsList searchQuery={searchQuery} rentalDays={rentalDays} />
+              <SearchBar setSearchQuery={setSearchQuery} setRentalPeriod={setRentalPeriod}/>
+              <CarsList searchQuery={searchQuery} rentalPeriod={rentalPeriod} />
             </>
           }
         />

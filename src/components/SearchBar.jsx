@@ -6,7 +6,7 @@ import 'react-date-range/dist/theme/default.css';
 import '../styles/SearchBar.css';
 import searchImg from '../assets/logo_search.png';
 
-export default function SearchBar({ setSearchQuery, setRentalDays }) {
+export default function SearchBar({ setSearchQuery, setRentalPeriod }) {
   const [rentalDate, setRentalDate] = useState('');
   const [showModal, setShowModal] = useState(false);
   const calendarRef = useRef(null);
@@ -28,7 +28,7 @@ export default function SearchBar({ setSearchQuery, setRentalDays }) {
 
   const { startDate, endDate } = ranges.selection;
 
-  // Если обе даты выбраны и они не равны, закрываем календарь
+
   if (startDate && endDate && startDate.getTime() !== endDate.getTime()) {
     applyDate(ranges.selection);
     setShowModal(false);
@@ -36,25 +36,29 @@ export default function SearchBar({ setSearchQuery, setRentalDays }) {
 };
 
 const applyDate = (selection = dateRange[0]) => {
-    const startDate = selection.startDate;
-    const endDate = selection.endDate;
+  const startDate = selection.startDate;
+  const endDate = selection.endDate;
 
-    const optionsDay = { day: '2-digit' };
-    const optionsMonthYear = { month: 'long', year: 'numeric' };
+  const optionsDay = { day: '2-digit' };
+  const optionsMonthYear = { month: 'long', year: 'numeric' };
 
-    const dayStart = startDate.toLocaleDateString('ru-RU', optionsDay);
-    const dayEnd = endDate.toLocaleDateString('ru-RU', optionsDay);
-    const monthYear = endDate.toLocaleDateString('ru-RU', optionsMonthYear);
+  const dayStart = startDate.toLocaleDateString('ru-RU', optionsDay);
+  const dayEnd = endDate.toLocaleDateString('ru-RU', optionsDay);
+  const monthYear = endDate.toLocaleDateString('ru-RU', optionsMonthYear);
 
-    const diffTime = endDate - startDate;
-    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  const diffTime = endDate - startDate;
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
-    const formatted = `${dayStart} - ${dayEnd} ${monthYear} (${diffDays} ${getDayWord(diffDays)})`;
+  const formatted = `${dayStart} - ${dayEnd} ${monthYear} (${diffDays} ${getDayWord(diffDays)})`;
 
-    setRentalDate(formatted);
-    setRentalDays(diffDays); // вот тут устанавливаем количество дней
-    setShowModal(false);
-  };
+  setRentalDate(formatted);
+  setShowModal(false);
+  setRentalPeriod({
+    startDate,
+    endDate,
+    days: diffDays
+  });
+};
 
   const getDayWord = (num) => {
     if (num % 10 === 1 && num % 100 !== 11) return 'день';
@@ -62,7 +66,7 @@ const applyDate = (selection = dateRange[0]) => {
     return 'дней';
   };
 
-  // Закрытие при клике вне календаря
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {

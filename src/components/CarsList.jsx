@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import CarCard from './CarCard';
 import '../styles/CarsList.css';
 
-export default function CarsList({ searchQuery, rentalDays }) {
+export default function CarsList({ searchQuery, rentalPeriod }) {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,7 @@ export default function CarsList({ searchQuery, rentalDays }) {
       <div className="cars-list">
         <div className="cars-card">
           {filteredCars.map((car) => (
-            <CarCard key={car.id} car={car} rentalDays={rentalDays} />
+            <CarCard key={car.id} car={car} rentalPeriod={rentalPeriod} />
           ))}
         </div>
       </div>
