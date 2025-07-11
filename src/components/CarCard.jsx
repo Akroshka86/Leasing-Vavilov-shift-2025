@@ -12,7 +12,7 @@ export default function CarCard({ car}) {
     const diffTime = end - start;
     rentalDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
   }
-  const totalPrice = rentalDays > 0 ? car.price * rentalDays : null;
+  const totalPrice = car.price * rentalDays;
 
   
 
