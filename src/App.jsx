@@ -4,6 +4,7 @@ import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import CarsList from './components/CarsList';
 import CarDetails from './components/CarDetails';
+import { ROUTES } from './routes/paths';
 import './styles/App.css';
 
 export default function App() {
@@ -28,7 +29,7 @@ export default function App() {
             </>
           }
         />
-        <Route path="/car/:carId" element={<CarDetails />} />
+        <Route path={ROUTES.CAR_DETAILS} element={<CarDetails />} />
       </Routes>
     </Router>
   );
