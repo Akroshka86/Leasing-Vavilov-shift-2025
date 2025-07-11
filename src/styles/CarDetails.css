@@ -21,6 +21,7 @@ body {
     height: 24px;
     background: none;
     border: 0px;
+    cursor: pointer; /* ← делает "лапку" */
 }
 
 .back-button-vector{
@@ -46,6 +47,7 @@ body {
     order: 1;
     flex-grow: 0;
 }
+
 
 .car-details-content{
     display: flex;
@@ -127,7 +129,6 @@ body {
 }
 
 .car-name{
-    width: 342px;
     height: 56px;
     font-family: 'Montserrat';
     font-style: normal;
@@ -245,6 +246,12 @@ body {
     line-height: 24px;
     color: #EFF0F1;
     background: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button-outline:hover {
+    background: #333333;
 }
 
 
@@ -271,4 +278,10 @@ body {
     line-height: 24px;
     color: #FFFFFF;
     border: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.book-button:hover {
+    background: #a50014;
 }

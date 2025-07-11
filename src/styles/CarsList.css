@@ -1,6 +1,6 @@
 .cars-card{
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд */
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px 28px;
 }
 
@@ -10,7 +10,7 @@
 
 
 .pagination {
-  margin-top: 24px;
+  margin: 48px 0px;
   display: flex;
   justify-content: center;
   gap: 8px;
