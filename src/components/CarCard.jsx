@@ -1,17 +1,21 @@
 import { Link } from 'react-router-dom';
 import '../styles/CarCard.css';
 import useStateManager from './StateManager';
+import { useMemo } from 'react';
 
-export default function CarCard({ car}) {
+export default function CarCard({ car }) {
   const cover = car.media.find((m) => m.isCover)?.url || '';
   const rentalPeriod = useStateManager((state) => state.rentalPeriod);
-  let rentalDays = 0;
-  if (rentalPeriod?.startDate && rentalPeriod?.endDate) {
-    const start = new Date(rentalPeriod.startDate);
-    const end = new Date(rentalPeriod.endDate);
-    const diffTime = end - start;
-    rentalDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
-  }
+
+  const rentalDays = useMemo(() => {
+    if (rentalPeriod?.startDate && rentalPeriod?.endDate) {
+      const start = new Date(rentalPeriod.startDate);
+      const end = new Date(rentalPeriod.endDate);
+      const diffTime = end - start;
+      return Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    }
+    return 0;
+  }, [rentalPeriod]);
   const totalPrice = car.price * rentalDays;
 
   
