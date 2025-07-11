@@ -1,9 +1,9 @@
 import '../styles/Header.css';
-import vectorImg from '../assets/logo_car.png';
-import userImg from '../assets/logo_user.png';
-import timeImg from '../assets/logo_time.png';
-import exitImg from '../assets/logo_exit.png';
-import styleImg from '../assets/logo_style.png';
+import logo_car from '../assets/logo_car.svg';
+import logo_user from '../assets/logo_user.svg';
+import logo_time from '../assets/logo_time.svg';
+import logo_exit from '../assets/logo_exit.svg';
+import logo_style from '../assets/logo_style.svg';
 
 
 export default function Header() {
@@ -18,7 +18,7 @@ export default function Header() {
                 <span className="shift">ШИФТ</span>
             </div>
             <div className="vector">
-                <img src={vectorImg} alt="vector"/>
+                <img src={logo_car} alt="назад" />
             </div>
         </div>
 
@@ -28,7 +28,7 @@ export default function Header() {
           <nav className="desktopNavigation">
             <div className="item_menu_1">
               <div className="tab_var_user">
-                <img src={userImg} alt="vector"/>
+                <img src={logo_user} alt="пользователь" />
               </div>
               <div className="item_user">
                 Профиль
@@ -36,7 +36,7 @@ export default function Header() {
             </div>
             <div className="item_menu_2">
               <div className="tab_var_time">
-                <img src={timeImg} alt="vector"/>
+                <img src={logo_time} alt="заказы" />
               </div>
               <div className="item_time">
                 Заказы
@@ -47,14 +47,14 @@ export default function Header() {
           <div className="actionsContainer">
             <div className="item_menu_3">
               <div className="tab_var_exit">
-                <img src={exitImg} alt="vector"/>
+                <img src={logo_exit} alt="vector"/>
               </div>
               <div className="item_exit">
                 Выйти
               </div>
             </div>
             <div className="item_menu_4">
-              <img src={styleImg} alt="vector"/>
+              <img src={logo_style} alt="vector"/>
             </div>
           </div>
         </div>

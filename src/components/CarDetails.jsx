@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import '../styles/CarDetails.css';
-import btnImg from '../assets/logo_btn.png';
-import lineImg from '../assets/logo-line.png';
 import { useLocation } from 'react-router-dom';
 import useStateManager from './StateManager';
+import logo_return from '../assets/logo_return.svg';
+import logo_line from '../assets/logo_line.svg';
 
 export default function CarDetails() {
     const { carId } = useParams();
@@ -88,7 +88,7 @@ export default function CarDetails() {
         <div className="car-details-back">
             <button className="back-button" onClick={() => navigate(-1)}>
             <div className="back-button-vector">
-                <img src={btnImg} alt="vector" />
+                <img src={logo_return} alt="вернуться" />
             </div>
             <div className="back-button-name">Назад</div>
             </button>
@@ -121,7 +121,7 @@ export default function CarDetails() {
 
                     <div className="car-specifications">
                         <div className="car-specifications-text">Характеристики</div>
-                        <img src={lineImg} alt="line" />
+                        <img src={logo_line} alt="line" />
 
                         <div className="specifications-box">
                             <div className="specifications-box-text">Коробка передач</div>
@@ -129,7 +129,7 @@ export default function CarDetails() {
                             {car.transmission === 'automatic' ? 'Автомат' : 'Механика'}
                             </div>
                         </div>
-                        <img src={lineImg} alt="line" />
+                        <img src={logo_line} alt="line" />
 
                         <div className="specifications-box">
                             <div className="specifications-box-text">Руль</div>
@@ -137,7 +137,7 @@ export default function CarDetails() {
                                 {car.steering === 'left' ? 'Левый' : 'Правый'}
                             </div>
                         </div>
-                        <img src={lineImg} alt="line" />
+                        <img src={logo_line} alt="line" />
                         
                         
 
@@ -147,7 +147,7 @@ export default function CarDetails() {
                                 {bodyTypeMap[car.bodyType] || 'Неизвестно'}
                             </div>
                         </div>
-                        <img src={lineImg} alt="line" />
+                        <img src={logo_line} alt="line" />
                         
 
                         <div className="specifications-box">
@@ -160,13 +160,13 @@ export default function CarDetails() {
 
                     <div className="car-cost">
                         <div className="car-specifications-text">Стоимость</div>
-                        <img src={lineImg} alt="line" />
+                        <img src={logo_line} alt="line" />
 
                         <div className="specifications-box">
                             <div className="specifications-box-text">Аренда на {rentalDays} {getDayWord(rentalDays)}</div>
                             <div className="specifications-box-info">{formattedRange}</div>
                         </div>
-                        <img src={lineImg} alt="line" />
+                        <img src={logo_line} alt="line" />
 
                         <div className="specifications-box">
                             <div className="specifications-box-text">Итого</div>

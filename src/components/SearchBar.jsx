@@ -4,7 +4,7 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import '../styles/SearchBar.css';
-import searchImg from '../assets/logo_search.png';
+import logo_search from '../assets/logo_search.svg';
 import useStateManager from './StateManager';
 
 export default function SearchBar({ setSearchQuery }) {
@@ -138,7 +138,7 @@ export default function SearchBar({ setSearchQuery }) {
 
           <button className="filter-button">
             <div className="filter-button-logo">
-              <img src={searchImg} alt="vector" />
+              <img src={logo_search} alt="vector" />
             </div>
             <div className="filter-button-text-box">
               <span className="filter-button-text">Фильтр</span>
