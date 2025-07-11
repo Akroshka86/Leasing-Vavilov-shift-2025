@@ -51,7 +51,6 @@
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
-    color: #FFFFFF;
     margin: 0;
 }
 
@@ -68,7 +67,6 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 24px;
-    color: #FFFFFF;
     margin: 0;
 }
 
@@ -80,7 +78,6 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    color: #EFF0F1;
     margin: 0;
 }
 
@@ -116,9 +113,9 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
-    color: #FFFFFF;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    color: #ffffff;
 }
 
 .car-card-content-button-btn:hover {
@@ -138,5 +135,4 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    color: #EFF0F1;
 }

@@ -1,0 +1,25 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --bg-color-btn: #d4d4d4;
+  --color-search: #f3f4f6;
+  --color-search-input: #ffffff;
+  --color-filter: #344051;
+  --color-text: #ffffff;
+}
+
+[data-theme='dark'] {
+  --bg-color: #212121;
+  --text-color: #ffffff;
+  --bg-color-btn: #353535;
+  --color-search: #344051;
+  --color-search-input: #141c24;
+  --color-filter: #eff0f1;
+  --color-text: #212121;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}

@@ -5,7 +5,7 @@ body{
 .header {
   width: 100%;
   height: 82px;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid #CED2DA;
   padding: 24px var(--padding-side, 16px);
   display: flex;
   justify-content: center;
@@ -146,7 +146,6 @@ body{
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #FFFFFF;
   flex: none;
   order: 1;
   flex-grow: 0;
@@ -177,7 +176,6 @@ body{
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #FFFFFF;
   flex: none;
   order: 1;
   flex-grow: 0;
@@ -236,7 +234,6 @@ body{
   font-size: 16px;
   line-height: 24px;
   text-align: right;
-  color: #FFFFFF;
   flex: none;
   order: 1;
   flex-grow: 0;

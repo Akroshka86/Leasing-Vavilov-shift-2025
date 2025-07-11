@@ -6,10 +6,14 @@ import 'react-date-range/dist/theme/default.css';
 import '../styles/SearchBar.css';
 import logo_search from '../assets/logo_search.svg';
 import useStateManager from './StateManager';
+import logo_search_2 from '../assets/logo_search_2.svg';
+import useThemeStore from '../components/ThemeStore';
 
 export default function SearchBar({ setSearchQuery }) {
   const [showModal, setShowModal] = useState(false);
   const calendarRef = useRef(null);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  const theme = useThemeStore((state) => state.theme);
 
   const rentalPeriod = useStateManager((state) => state.rentalPeriod);
   const setRentalPeriod = useStateManager((state) => state.setRentalPeriod);
@@ -138,7 +142,7 @@ export default function SearchBar({ setSearchQuery }) {
 
           <button className="filter-button">
             <div className="filter-button-logo">
-              <img src={logo_search} alt="vector" />
+              <img src={theme === 'dark' ? logo_search : logo_search_2} alt="vector" />
             </div>
             <div className="filter-button-text-box">
               <span className="filter-button-text">Фильтр</span>
